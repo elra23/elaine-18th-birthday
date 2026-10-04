@@ -7,6 +7,11 @@ const $ = (id) => document.getElementById(id);
 const rand = (a, b) => a + Math.random() * (b - a);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const isMobile = () => window.innerWidth < 700;
+const isLowEnd = () => {
+  const cores = navigator.hardwareConcurrency || 4;
+  const mem = navigator.deviceMemory || 4;
+  return cores <= 4 || mem <= 4;
+};
 const prefersReduced = () =>
   window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -229,7 +234,8 @@ function populateField() {
   field.innerHTML = '';
 
   const mobile = isMobile();
-  const total = mobile ? 7 : 15;
+  const lowEnd = isLowEnd();
+  const total = lowEnd ? (mobile ? 4 : 8) : (mobile ? 7 : 15);
   const count = Math.max(0, total - burstCarry);
   burstCarry = 0;
 
@@ -344,8 +350,11 @@ function initIntroGate() {
 
   // Stage 2 -> transition -> main site: touch the lily
   lilyButton.addEventListener('click', () => {
-    if (lilyButton.disabled) return;
-    lilyButton.disabled = true;
+      if (prefersReduced() || !document.body.animate) {
+        simpleReveal();
+      } else {
+        bloomTransition();
+      }
 
     // music starts on this real click, which satisfies autoplay rules
     if (bgMusic) {
@@ -380,68 +389,62 @@ function initIntroGate() {
   // middle of the screen, bursts into petals + butterflies, and a ring
   // of golden light opens from its heart to reveal the site.
   // ------------------------------------------------------------------
-  function bloomTransition() {
-    const W = window.innerWidth;
-    const H = window.innerHeight;
-    const mobile = isMobile();
-
+    function bloomTransition() {
     const rect = lilyMount.getBoundingClientRect();
-    const x0 = rect.left + rect.width / 2;
-    const y0 = rect.top + rect.height / 2;
-    const cx = W / 2;
-    const cy = H / 2;
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
 
-    // 1) hand the lily over to a floating copy so the card can fade away
-    const wrap = document.createElement('div');
-    wrap.className = 'bloom-lily';
-    wrap.style.left = rect.left + 'px';
-    wrap.style.top = rect.top + 'px';
-    wrap.style.width = rect.width + 'px';
-    wrap.style.height = rect.height + 'px';
-    wrap.innerHTML = lilyMarkup('B');
-    bloomLayer.appendChild(wrap);
-    lilyMount.style.visibility = 'hidden';
+    // 1) bloom open right where it sits — no floating, no scaling to huge size
+    const svg = lilyMount.querySelector('.lily-svg');
+    if (svg) svg.classList.add('bloom');
 
     letterCard.animate(
       [
         { opacity: 1, transform: 'translateY(0) scale(1)' },
-        { opacity: 0, transform: 'translateY(-18px) scale(0.96)' }
+        { opacity: 1, transform: 'translateY(0) scale(1.03)', offset: 0.5 },
+        { opacity: 0, transform: 'translateY(-6px) scale(0.98)' }
       ],
-      { duration: 550, easing: 'ease-in', fill: 'forwards' }
+      { duration: 650, easing: 'ease-in-out', fill: 'forwards' }
     );
-    if (introBf) introBf.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 600, fill: 'forwards' });
+    if (introBf) introBf.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: 'forwards' });
 
-    // 2) lily floats to the centre, growing as it goes, petals opening
-    const S = Math.min(2.7, (Math.min(W, H) * 0.46) / rect.width);
-    const dx = cx - x0;
-    const dy = cy - y0;
-    wrap.animate(
-      [
-        { transform: 'translate(0px, 0px) scale(1)' },
-        { transform: `translate(${dx * 0.5}px, ${dy * 0.5 - 40}px) scale(${1 + (S - 1) * 0.55})`, offset: 0.55 },
-        { transform: `translate(${dx}px, ${dy}px) scale(${S})` }
-      ],
-      { duration: 950, easing: 'cubic-bezier(0.45, 0.05, 0.2, 1)', fill: 'forwards' }
-    );
-    setTimeout(() => {
-      const svg = wrap.querySelector('.lily-svg');
-      if (svg) svg.classList.add('bloom');
-    }, 120);
+    // 2) a quick burst of sparkles right at the lily's own position
+    setTimeout(() => dissolveSparkles(cx, cy), 280);
 
-    // 3) full bloom: burst of light, petals, pollen and butterflies
-    setTimeout(() => {
-      burst(cx, cy);
-      wrap.animate(
+    // 3) screen fades to reveal the site, shortly after the sparkles start
+    setTimeout(() => reveal(cx, cy), 650);
+  }
+
+  // small sparkle dissolve in place of the old petal burst — quick, no
+  // travel distance, just the lily's own light scattering away
+  function dissolveSparkles(cx, cy) {
+    const mobile = isMobile();
+    const count = mobile ? 14 : 24;
+    for (let i = 0; i < count; i++) {
+      const d = document.createElement('span');
+      d.className = 'pollen';
+      const s = rand(4, 8);
+      d.style.width = d.style.height = s + 'px';
+      d.style.left = cx + 'px';
+      d.style.top = cy + 'px';
+      bloomLayer.appendChild(d);
+      const ang = rand(0, Math.PI * 2);
+      const dist = rand(40, 140);
+      d.animate(
         [
-          { opacity: 1, transform: `translate(${dx}px, ${dy}px) scale(${S})` },
-          { opacity: 0, transform: `translate(${dx}px, ${dy}px) scale(${S * 1.7})` }
+          { transform: 'translate(-50%, -50%) scale(0.3)', opacity: 0 },
+          { transform: `translate(-50%, -50%) translate(${Math.cos(ang) * dist * 0.6}px, ${Math.sin(ang) * dist * 0.6}px) scale(1)`, opacity: 1, offset: 0.4 },
+          { transform: `translate(-50%, -50%) translate(${Math.cos(ang) * dist}px, ${Math.sin(ang) * dist - 20}px) scale(0.3)`, opacity: 0 }
         ],
-        { duration: 1100, delay: 150, easing: 'ease-in', fill: 'forwards' }
-      );
-    }, 950);
+        { duration: rand(500, 850), delay: rand(0, 120), easing: 'ease-out', fill: 'both' }
+      ).onfinish = () => d.remove();
+    }
 
-    // 4) a ring of golden light opens from the flower and reveals the site
-    setTimeout(() => reveal(cx, cy), 1050);
+    const bn = mobile ? 3 : 6;
+    burstCarry = bn;
+    for (let i = 0; i < bn; i++) {
+      burstButterfly(cx, cy, i, bn, window.innerWidth, window.innerHeight, mobile);
+    }
   }
 
   function burst(cx, cy) {
