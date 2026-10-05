@@ -1402,8 +1402,12 @@ a { color: inherit; }
 @keyframes pinBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 .map-ph p { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; }
 .location-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 30px; padding: 20px 10px 8px; color: var(--d-ink-2); font-size: 0.95rem; }
+.btn-directions {
+  display: flex;
+  justify-content: center;
+  margin: 18px auto 0;
+}
 .location-meta span { display: inline-flex; align-items: center; gap: 8px; }
-.btn-directions { margin-top: 18px;}
 .ico-s { width: 18px; height: 18px; color: var(--d-gold); }
 
 /* =============================================================
