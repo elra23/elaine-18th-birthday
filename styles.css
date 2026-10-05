@@ -1402,6 +1402,17 @@ a { color: inherit; }
 @keyframes pinBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 .map-ph p { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; }
 .location-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 30px; padding: 20px 10px 8px; color: var(--d-ink-2); font-size: 0.95rem; }
+@media (max-width: 600px) {
+  .location-meta {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+  .btn-directions {
+    margin-top: 22px;
+  }
+}
 .btn-directions {
   display: flex;
   justify-content: center;
