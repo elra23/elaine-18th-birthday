@@ -74,6 +74,36 @@ a { color: inherit; }
   }
 }
 
+/* Low-end devices: retain the layout and the key transition, but remove the
+   expensive full-screen compositing work that competes with scrolling. */
+.low-end .ambient-sky::before,
+.low-end .ambient-sky::after,
+.low-end .ambient-sparkles .drift,
+.low-end .lantern,
+.low-end .site-entering .hero-garden,
+.low-end .site-entering .site-nav {
+  animation: none !important;
+}
+
+.low-end .ambient-sparkles .drift { opacity: 0.55; }
+
+.low-end .arch-frame,
+.low-end .back-to-top,
+.low-end .envelope-back,
+.low-end .letter-card {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.low-end .hg-moon,
+.low-end .lantern,
+.low-end .arch-bow,
+.low-end .arch-chandelier,
+.low-end .intro-garland span,
+.low-end .intro-outer span {
+  filter: none;
+}
+
 /* =============================================================
    INTRO GATE — envelope + letter + lantern transition
    ============================================================= */
@@ -1260,89 +1290,6 @@ a { color: inherit; }
 .sw-4 { background: radial-gradient(circle at 32% 28%, #FFC0CB); --g: #e09ea9; }
 .sw-5 { background: radial-gradient(circle at 32% 28%, #FFFAA0); --g: #ebe79a; }
 .sw-6 { background: radial-gradient(circle at 32% 28%, #A7C7E7); --g: #aecdec ; }
-
-/* =============================================================
-   RSVP + MESSAGE
-   ============================================================= */
-.rsvp-card { display: grid; grid-template-columns: 0.85fr 1.15fr; overflow: hidden; }
-.rsvp-side {
-  position: relative;
-  display: flex; flex-direction: column; justify-content: center;
-  text-align: center;
-  padding: clamp(34px, 5vw, 56px) clamp(24px, 4vw, 44px);
-  background:
-    radial-gradient(circle at 20% 15%, rgba(255,240,196,0.7), transparent 55%),
-    linear-gradient(160deg, rgba(196,170,244,0.5), rgba(243,181,212,0.4));
-}
-.rsvp-side p { color: var(--d-ink-2); line-height: 1.8; }
-.rsvp-heart { display: grid; place-items: center; width: 54px; height: 54px; margin: 26px auto 0; border-radius: 50%; color: #C4487F; background: rgba(255,255,255,0.7); box-shadow: 0 10px 24px -8px rgba(196,72,127,0.5); }
-.heart-ico { width: 26px; height: 26px; }
-
-.rsvp-form { display: grid; gap: 20px; padding: clamp(28px, 5vw, 52px); align-content: start; }
-.f-field { display: grid; gap: 8px; border: 0; padding: 0; margin: 0; min-width: 0; }
-.f-field > span, .f-field > legend { padding: 0; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--d-ink-3); font-weight: 500; }
-.f-field em { text-transform: none; letter-spacing: 0; font-style: normal; opacity: 0.8; }
-.f-field input[type="text"], .f-field input[type="number"], .f-field textarea {
-  width: 100%;
-  padding: 14px 18px;
-  border-radius: 16px;
-  border: 1px solid rgba(142,116,214,0.3);
-  background: rgba(255,255,255,0.75);
-  color: var(--d-ink);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  outline: none;
-  box-shadow: inset 0 2px 4px rgba(96,64,168,0.06);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-}
-.f-field textarea { resize: vertical; min-height: 110px; }
-.f-field input:focus, .f-field textarea:focus { border-color: var(--d-violet); background: #fff; box-shadow: 0 0 0 4px rgba(142,116,214,0.2); }
-.f-field ::placeholder { color: #A99BC9; }
-
-.pill-radio { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.pill-radio label { position: relative; }
-.pill-radio input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
-.pill-radio span {
-  display: block; text-align: center;
-  padding: 14px 10px;
-  border-radius: 16px;
-  border: 1px solid rgba(142,116,214,0.3);
-  background: rgba(255,255,255,0.7);
-  color: var(--d-ink-2);
-  font-size: 0.92rem;
-  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.pill-radio input:checked + span {
-  background: linear-gradient(135deg, #F5D894, #DDAE55);
-  border-color: rgba(199,154,69,0.9);
-  color: #3A2708;
-  font-weight: 500;
-  box-shadow: 0 10px 22px -10px rgba(199,154,69,0.9);
-}
-.pill-radio input:focus-visible + span { outline: 2px solid var(--d-violet); outline-offset: 2px; }
-
-.stepper { display: flex; align-items: center; gap: 10px; width: max-content; max-width: 100%; }
-.step-btn {
-  width: 46px; height: 46px;
-  border-radius: 50%;
-  border: 1px solid rgba(142,116,214,0.35);
-  background: rgba(255,255,255,0.8);
-  color: var(--d-ink-2);
-  font-size: 1.4rem; line-height: 1;
-  cursor: pointer;
-  transition: background 0.25s ease, transform 0.25s ease;
-}
-.step-btn:hover { background: #fff; transform: scale(1.06); }
-.stepper input[type="number"] { width: 72px; text-align: center; -moz-appearance: textfield; appearance: textfield; }
-.stepper input[type="number"]::-webkit-outer-spin-button, .stepper input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-.f-guests.is-hidden { display: none; }
-.btn-submit { justify-self: start; }
-.form-status { min-height: 1.4em; font-family: var(--font-display); font-style: italic; font-size: 1.05rem; color: var(--d-violet); }
-
-@media (max-width: 860px) {
-  .rsvp-card { grid-template-columns: 1fr; }
-  .btn-submit { justify-self: stretch; }
-}
 
 /* =============================================================
    THANK-YOU LETTER

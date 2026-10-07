@@ -8,9 +8,15 @@ const rand = (a, b) => a + Math.random() * (b - a);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const isMobile = () => window.innerWidth < 700;
 const isLowEnd = () => {
-  const cores = navigator.hardwareConcurrency || 4;
-  const mem = navigator.deviceMemory || 4;
-  return cores <= 4 || mem <= 4;
+  // Only use hardware signals the browser actually exposes. Treating an
+  // unavailable value as a low-end signal made capable browsers needlessly
+  // use the reduced experience.
+  const cores = Number(navigator.hardwareConcurrency);
+  const mem = Number(navigator.deviceMemory);
+  const saveData = navigator.connection && navigator.connection.saveData;
+  return Boolean(saveData) ||
+    (Number.isFinite(cores) && cores > 0 && cores <= 4) ||
+    (Number.isFinite(mem) && mem > 0 && mem <= 4);
 };
 const prefersReduced = () =>
   window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -35,6 +41,7 @@ window.addEventListener('pageshow', (e) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('gate-active');
+  if (isLowEnd()) document.body.classList.add('low-end');
   window.scrollTo(0, 0);
 
   initIntroGate();
@@ -45,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
   buildTraditions();
   initCountdown();
   initReveal();
-  initForm();
   initBackToTop();
 });
 
@@ -218,7 +224,7 @@ function wander(el, start, startAngle, opts) {
 // ---------- butterflies fluttering on the intro screens ----------
 function spawnIntroButterflies(container) {
   if (!container || prefersReduced()) return;
-  const n = isMobile() ? 4 : 6;
+  const n = isLowEnd() ? 3 : (isMobile() ? 4 : 6);
   for (let i = 0; i < n; i++) {
     const el = createButterfly(isMobile() ? rand(24, 36) : rand(28, 46));
     container.appendChild(el);
@@ -235,7 +241,8 @@ function populateField() {
 
   const mobile = isMobile();
   const lowEnd = isLowEnd();
-  const total = lowEnd ? (mobile ? 4 : 8) : (mobile ? 7 : 15);
+  // Keep a visible animated trio even in the lightweight experience.
+  const total = lowEnd ? (mobile ? 3 : 4) : (mobile ? 7 : 15);
   const count = Math.max(0, total - burstCarry);
   burstCarry = 0;
 
@@ -258,7 +265,11 @@ function startButterflyField() {
   // wait two frames so the opacity transition actually plays
   requestAnimationFrame(() => requestAnimationFrame(() => field.classList.add('on')));
 
-  // rebuild if the window crosses the mobile breakpoint
+  // Rebuild if the window crosses the mobile breakpoint. This is registered
+  // once; the intro may be revealed only once, but keeping the guard avoids
+  // multiplying resize handlers if this function is reused.
+  if (field.dataset.started) return;
+  field.dataset.started = 'true';
   let timer = null;
   let wasMobile = isMobile();
   window.addEventListener('resize', () => {
@@ -354,11 +365,9 @@ function initIntroGate() {
 
   // Stage 2 -> transition -> main site: touch the lily
   lilyButton.addEventListener('click', () => {
-      if (prefersReduced() || !document.body.animate) {
-        simpleReveal();
-      } else {
-        bloomTransition();
-      }
+    if (lilyButton.dataset.transitionStarted) return;
+    lilyButton.dataset.transitionStarted = 'true';
+    lilyButton.disabled = true;
 
     // music starts on this real click, which satisfies autoplay rules
     if (bgMusic) {
@@ -688,8 +697,8 @@ const TRADITIONS = {
     tagline: 'Eighteen people who’ve been a steady light in Elaine’s life, each lighting a candle in that person’s honor.',
     names: [
       'Rhea Diamsay', 'Leigh Anne Bangcaray', 'Arian Bangcaray', 'Ryza Nuqui', 'Saira Joy Nuqui', 'Kristine Chloe Rullan',
-      'Audrey Miller', 'Zcarina Aguiadan', 'RB Pangilinan', 'Dian Bangcaray', 'Rian Eteroza', 'Darlene Maribojoc',
-      'Sherry Ann Nuqui', 'Marinelle Perer', 'Chelsea Zeta', 'Ofemia Miller', 'Amelia Cawigan', 'Krisna Cawigan'
+      'Audrey Miller', 'Zcarina Aguiadan', 'Achelle Beltran', 'Dian Bangcaray', 'Rian Eteroza', 'Darlene Maribojoc',
+      'Sherry Ann Nuqui', 'Ash Dela Cruz', 'Chelsea Zeta', 'Ofemia Miller', 'Amelia Cawigan', 'Krisna Cawigan'
     ]
   },
   roses: {
@@ -810,7 +819,7 @@ function initScrollSpy() {
 function initAmbientSparkles() {
   const layer = $('ambientSparkles');
   if (!layer) return;
-  const count = window.innerWidth < 700 ? 10 : 18;
+  const count = isLowEnd() ? (isMobile() ? 2 : 4) : (isMobile() ? 10 : 18);
 
   for (let i = 0; i < count; i++) {
     const dot = document.createElement('span');
@@ -827,7 +836,7 @@ function initAmbientSparkles() {
 // =============================================================
 function initParallax() {
   const garden = document.querySelector('.hero-garden');
-  if (!garden || prefersReduced()) return;
+  if (!garden || prefersReduced() || isLowEnd()) return;
 
   let ticking = false;
   window.addEventListener(
@@ -996,68 +1005,6 @@ function initReveal() {
   );
 
   targets.forEach((t) => observer.observe(t));
-}
-
-// =============================================================
-// RSVP FORM
-// =============================================================
-function initForm() {
-  const form = $('rsvpForm');
-  const status = $('rsvpStatus');
-  if (!form) return;
-
-  // guest-count stepper
-  const input = $('guestsInput');
-  form.querySelectorAll('.step-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const step = Number(btn.dataset.step) || 0;
-      const min = Number(input.min) || 1;
-      const max = Number(input.max) || 10;
-      input.value = clamp((Number(input.value) || min) + step, min, max);
-    });
-  });
-
-  // hide the guest count when someone can't make it
-  const guestsField = $('guestsField');
-  form.querySelectorAll('input[name="Attendance"]').forEach((r) => {
-    r.addEventListener('change', () => {
-      const declined = form.querySelector('input[name="Attendance"]:checked').value === 'Regretfully Declines';
-      guestsField.classList.toggle('is-hidden', declined);
-      input.disabled = declined;
-    });
-  });
-
-  form.addEventListener('submit', async (e) => {
-    const action = form.getAttribute('action') || '';
-    if (action.includes('REPLACE_WITH_EMAIL')) {
-      e.preventDefault();
-      status.textContent =
-        'Form isn’t connected yet — swap REPLACE_WITH_EMAIL in the form action for the real address.';
-      return;
-    }
-
-    e.preventDefault();
-    status.textContent = 'Sending it now…';
-
-    try {
-      const formData = new FormData(form);
-      const res = await fetch(action, {
-        method: 'POST',
-        body: formData,
-        headers: { Accept: 'application/json' }
-      });
-      if (res.ok) {
-        status.textContent = 'Got it, thank you! 💌';
-        form.reset();
-        guestsField.classList.remove('is-hidden');
-        input.disabled = false;
-      } else {
-        status.textContent = 'That didn’t go through — try again?';
-      }
-    } catch (err) {
-      status.textContent = 'Couldn’t send that — check your connection and try again.';
-    }
-  });
 }
 
 // =============================================================
