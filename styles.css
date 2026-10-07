@@ -1419,6 +1419,14 @@ a { color: inherit; }
   .btn-directions {
     margin-top: 22px;
   }
+   .location-meta span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .location-meta .ico-s {
+    flex-shrink: 0;
+  }
 }
 .btn-directions {
   display: flex;
