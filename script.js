@@ -678,7 +678,7 @@ function initIntroGate() {
 // =============================================================
 
 // -------------------------------------------------------------
-// ✏️ EDIT HERE — the names for the eighteen traditions.
+// the names for the eighteen traditions.
 // Replace 'Name Here' with real names. Leave a slot as 'Name Here'
 // (or delete it) and the placeholder stays. Order = order shown.
 // -------------------------------------------------------------
@@ -687,52 +687,61 @@ const TRADITIONS = {
     title: '18 Candles',
     tagline: 'Eighteen people who’ve been a steady light in Elaine’s life, each lighting a candle in that person’s honor.',
     names: [
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here',
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here',
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here'
+      'Rhea Diamsay', 'Leigh Anne Bangcaray', 'Arian Bangcaray', 'Ryza Nuqui', 'Saira Joy Nuqui', 'Kristine Chloe Rullan',
+      'Audrey Miller', 'Zcarina Aguiadan', 'RB Pangilinan', 'Dian Bangcaray', 'Rian Eteroza', 'Darlene Maribojoc',
+      'Sherry Ann Nuqui', 'Marinelle Perer', 'Chelsea Zeta', 'Ofemia Miller', 'Amelia Cawigan', 'Krisna Cawigan'
     ]
   },
   roses: {
     title: '18 Roses',
     tagline: 'Eighteen roses from eighteen people close to her, each one handed over with a wish for what’s next.',
     names: [
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here',
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here',
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here'
+      'Ivan Bangcaray', 'Raven Dave Falalimpa', 'Ian Bangcaray', 'Ronel Montoya', 'Renz Erwin Nuqui', 'Tristan Kyle Valenzuela',
+      'Clarence Viray', 'Ramil Diamsay', 'Jorous Cawigan', 'Mark Ian Mendoza', 'Kevin Jay Maribojoc', 'Joshua Cawigan',
+      'Willington Nuqui', 'Carlo Nuqui', 'Redd Bansil', 'Mateo Cawigan', 'Andy Cawigan', 'Alaine Cawigan'
     ]
   },
   treasures: {
     title: '18 Treasures',
     tagline: 'Eighteen small gifts standing in for the advice behind them — practical stuff for the years ahead.',
     names: [
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here',
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here',
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here'
+      'Charmie Nuqui', 'Myca Lua', 'Jaymar Guinto', 'Karen David ', 'Jelline Manalasan', 'Paula Jane Ochoa',
+      'Katherine Nuqui', 'Janelle Manalasan', 'Remy Juliana Delazo', 'Marianelle Orado', 'Clariza Ducut', 'Aishia Ross Mangalindan',
+      'Rhian Esquilla', 'Frinzes Jhea A. Alipater', 'Anne Loraine Ibo', 'Alziea Hapin', 'Christine Cawigan', 'Sazzy Princess Magistrado'
     ]
   },
   shots: {
     title: '18 Shots',
     tagline: 'Eighteen rounds with the friends who show up for exactly this kind of thing.',
     names: [
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here',
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here',
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here'
+      'Leo Bangcaray', 'Yves Alfonso', 'Kevin Nuqui', 'Joseph Valenzuela', 'Mico Jay Mendoza', 'Jazzfer Payumo',
+      'Rommel Diamsay', 'Dante Bangcaray', 'Jaime Ibo', 'Christian Paul Falalimpa', 'Alvin Bordeos', 'Billy Nuqui',
+      'Mhat Miller', 'Earl David', 'Prince Jacob', 'Raymond Mendoza', 'Daniel Peligro', 'Ricky Rullan'
     ]
   },
   bills: {
     title: '18 Blue Bills',
     tagline: 'Eighteen bills, each one a small blessing for whatever Elaine builds next.',
     names: [
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here',
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here',
-      'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here', 'Name Here'
+      'Gloria Reyes', 'Joyce Bansil', 'Mitchy Faith', 'Rexine Alfonso', 'Jhoan Rullan', 'Jimmy Nuqui',
+      'Emil Cabales', 'Jenny Manalansan', 'Lethisia Manuel', 'Bryan Maglalang', 'Julliane Peñaranda', 'Janice Mallari',
+      'Zorina Valenzuela', 'Maricris Marunoc', 'Emmanuel Dabu', 'Michelle Anne Guballo', 'Cecil Falalimpa', 'Lhery David'
+    ]
+  },
+  balloons: {
+    title: '18 Balloons',
+    tagline: 'Eighteen balloons, each carrying a wish or a dream for the years ahead.',
+    names: [
+      'Ashley Bangcaray ', 'Aethan Rullan', 'Nathan Rullan', 'Jeoff Andrei Mendoza', 'Arain Ibo', 'Kyre Peñaranda',
+      'Kalel David', 'Nathaniel Nuqui', 'Cindy Ochoa', 'Angeline Mosones', 'Angela Mosones', 'Ivan Manzon', 'Nigel Manzon',
+      'Kyle Mungcal', 'Jaydee Payumo', 'Uno Ambit', 'Rafael Laurence Tolen', 'Zafira Molly Macaspag'
     ]
   }
 };
 
 // ✏️ EDIT HERE — the date and time the countdown counts down to.
-// October 17, 2026 at 5:00 PM (Philippine time, UTC+8).
-const EVENT_DATE = '2026-10-17T17:00:00+08:00';
+// October 17, 2026 at 6:00 PM (Philippine time, UTC+8).
+const EVENT_DATE = '2026-10-17T18:00:00+08:00';
 
 // =============================================================
 // NAV

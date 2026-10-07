@@ -1122,6 +1122,7 @@ a { color: inherit; }
 [data-key="treasures"] { --a: #D6C2F8; --b: #AD90EC; --n: #7F5BD0; }
 [data-key="shots"]     { --a: #C3D0FA; --b: #92A9F0; --n: #5470D6; }
 [data-key="bills"]     { --a: #B4CDFA; --b: #82A4EE; --n: #3F62CF; }
+[data-key="balloons"]  { --a: #F7C5E4; --b: #E98DC2; --n: #B74483; }
 
 .trad-panel { animation: panelIn 0.6s ease both; }
 @keyframes panelIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
@@ -1155,7 +1156,7 @@ a { color: inherit; }
 .orb:hover { transform: translateY(-4px); box-shadow: 0 18px 30px -14px var(--b); }
 @keyframes orbIn { from { opacity: 0; transform: translateY(14px) scale(0.94); } to { opacity: 1; transform: none; } }
 .orb-n { font-family: var(--font-display); font-weight: 600; font-size: 1.9rem; line-height: 1.1; color: var(--n); }
-.orb-name { font-size: 0.82rem; color: var(--d-ink); line-height: 1.35; }
+.orb-name { font-size: 0.96rem; font-weight: 600; color: var(--d-ink); line-height: 1.35; }
 .orb-name.is-blank { color: var(--d-ink-3); font-style: italic; }
 @media (max-width: 900px) { .orbs { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 520px) {
@@ -1419,7 +1420,7 @@ a { color: inherit; }
   .btn-directions {
     margin-top: 22px;
   }
-   .location-meta span {
+  .location-meta span {
     display: flex;
     align-items: center;
     gap: 8px;
