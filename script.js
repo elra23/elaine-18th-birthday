@@ -345,7 +345,11 @@ function initIntroGate() {
     setTimeout(() => {
       envelopeStage.hidden = true;
       letterStage.hidden = false;
-    }, 550);
+      letterStage.classList.add('stage-settling');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => letterStage.classList.remove('stage-settling'));
+    });
+}, 550);
   });
 
   // Stage 2 -> transition -> main site: touch the lily

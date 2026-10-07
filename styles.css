@@ -219,6 +219,11 @@ a { color: inherit; }
 .intro-outer span:nth-child(6)  { bottom: 16%; left: 9%;  font-size: 1.1rem; }
 .intro-outer span:nth-child(7)  { bottom: 7%;  right: 4%; font-size: 1.5rem; }
 .intro-outer span:nth-child(8)  { bottom: 15%; right: 8%; font-size: 1.1rem; }
+.stage-settling .intro-stars,
+.stage-settling .intro-garland,
+.stage-settling .intro-outer {
+  animation-play-state: paused;
+}
 .intro-outer .vine:nth-of-type(1) { top: 2%; left: 6%; height: 18%; transform: rotate(8deg); }
 .intro-outer .vine:nth-of-type(2) { top: 2%; right: 7%; height: 18%; transform: rotate(-8deg); }
 .intro-outer .vine:nth-of-type(3) { bottom: 2%; left: 7%; height: 18%; transform: rotate(-8deg); }
@@ -405,7 +410,9 @@ a { color: inherit; }
   border-radius: 0 0 10px 0;
 }
 @keyframes letterIn {
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  0%   { opacity: 0; transform: translateY(24px) scale(0.97); backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px); }
+  60%  { backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); backdrop-filter: blur(9px) saturate(1.15); -webkit-backdrop-filter: blur(9px) saturate(1.15); }
 }
 
 .letter-eyebrow {
