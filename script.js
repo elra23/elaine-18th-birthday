@@ -697,8 +697,8 @@ const TRADITIONS = {
     tagline: 'Eighteen people who’ve been a steady light in Elaine’s life, each lighting a candle in that person’s honor.',
     names: [
       'Rhea Diamsay', 'Leigh Anne Bangcaray', 'Arian Bangcaray', 'Ryza Nuqui', 'Saira Joy Nuqui', 'Kristine Chloe Rullan',
-      'Audrey Miller', 'Zcarina Aguiadan', 'Achelle Beltran', 'Dian Bangcaray', 'Rian Eteroza', 'Darlene Maribojoc',
-      'Sherry Ann Nuqui', 'Ash Dela Cruz', 'Chelsea Zeta', 'Ofemia Miller', 'Amelia Cawigan', 'Krisna Cawigan'
+      'Audrey Miller', 'Gwyneth Anne Mendoza', 'Achelle Beltran', 'Dian Bangcaray', 'Jamaica Dela Cruz', 'Darlene Maribojoc',
+      'Sherry Ann Nuqui', 'Asheen Dela Cruz', 'Chelsea Zeta', 'Ofemia Miller', 'Amelia Cawigan', 'Krisna Cawigan'
     ]
   },
   roses: {
@@ -723,9 +723,9 @@ const TRADITIONS = {
     title: '18 Shots',
     tagline: 'Eighteen rounds with the friends who show up for exactly this kind of thing.',
     names: [
-      'Leo Bangcaray', 'Yves Alfonso', 'Kevin Nuqui', 'Joseph Valenzuela', 'Mico Jay Mendoza', 'Jazzfer Payumo',
+      'Ricky Rullan', 'Yves Alfonso', 'Kevin Nuqui', 'Joseph Valenzuela', 'Mico Jay Mendoza', 'Jazzfer Payumo',
       'Rommel Diamsay', 'Dante Bangcaray', 'Jaime Ibo', 'Christian Paul Falalimpa', 'Alvin Bordeos', 'Billy Nuqui',
-      'Mhat Miller', 'Earl David', 'Prince Jacob', 'Raymond Mendoza', 'Daniel Peligro', 'Ricky Rullan'
+      'Mhat Miller', 'Renz Erwin Nuqui', 'Prince Jacob', 'Raymond Mendoza', 'Daniel Peligro', 'Leo Bangcaray'
     ]
   },
   bills: {
