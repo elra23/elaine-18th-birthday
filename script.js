@@ -1,7 +1,7 @@
 // =============================================================
 // ELAINE'S 18TH BIRTHDAY DEBUT — script.js
 // "Eighteen Years of Moonlight"
-// =============================================================
+// =============================================================tradi
 
 const $ = (id) => document.getElementById(id);
 const rand = (a, b) => a + Math.random() * (b - a);
@@ -741,9 +741,9 @@ const TRADITIONS = {
     title: '18 Balloons',
     tagline: 'Eighteen balloons, each carrying a wish or a dream for the years ahead.',
     names: [
-      'Ashley Bangcaray ', 'Aethan Rullan', 'Nathan Rullan', 'Jeoff Andrei Mendoza', 'Arain Ibo', 'Name Here',
+      'Ashley Bangcaray ', 'Aethan Rullan', 'Nathan Rullan', 'Jeoff Andrei Mendoza', 'Arain Ibo', 'Marielyn Armelle Asuncion',
       'Kalel David', 'Nathaniel Nuqui', 'Cindy Ochoa', 'Angeline Mosones', 'Angela Mosones', 'Ivan Manzon', 'Nigel Manzon',
-      'Jaydee Payumo', 'Uno Ambit', 'Rafael Laurence Tolen', 'Zafira Molly Macaspag', 'Kyle Mungcal'
+      'Kyle Mungcal', 'Jaydee Payumo', 'Kenjie David', 'Rafael Laurence Tolem', 'Zafira Molly Macaspag'
     ]
   },
   chocolates: {
