@@ -741,9 +741,9 @@ const TRADITIONS = {
     title: '18 Balloons',
     tagline: 'Eighteen balloons, each carrying a wish or a dream for the years ahead.',
     names: [
-      'Ashley Bangcaray ', 'Aethan Rullan', 'Nathan Rullan', 'Jeoff Andrei Mendoza', 'Arain Ibo', 'Kyre Peñaranda',
+      'Ashley Bangcaray ', 'Aethan Rullan', 'Nathan Rullan', 'Jeoff Andrei Mendoza', 'Arain Ibo', 'Name Here',
       'Kalel David', 'Nathaniel Nuqui', 'Cindy Ochoa', 'Angeline Mosones', 'Angela Mosones', 'Ivan Manzon', 'Nigel Manzon',
-      'Kyle Mungcal', 'Jaydee Payumo', 'Uno Ambit', 'Rafael Laurence Tolen', 'Zafira Molly Macaspag'
+      'Jaydee Payumo', 'Uno Ambit', 'Rafael Laurence Tolen', 'Zafira Molly Macaspag', 'Kyle Mungcal'
     ]
   },
   chocolates: {
