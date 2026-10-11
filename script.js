@@ -745,10 +745,19 @@ const TRADITIONS = {
       'Kalel David', 'Nathaniel Nuqui', 'Cindy Ochoa', 'Angeline Mosones', 'Angela Mosones', 'Ivan Manzon', 'Nigel Manzon',
       'Kyle Mungcal', 'Jaydee Payumo', 'Uno Ambit', 'Rafael Laurence Tolen', 'Zafira Molly Macaspag'
     ]
+  },
+  chocolates: {
+    title: '18 Chocolates',
+    tagline: 'Eighteen chocolates, one for every year, each given by someone who was there for it.',
+    names: [
+      'Ace Maribojoc', 'Lei Asher Bangcaray', 'Kyro Buenaventura', 'Navin Nuqui', 'Jarred Nuqui', 'Azriel Danzel Nuqui',
+      'Kalix Jaze Nuqui', 'Mark Aaron Asuncio', 'Gyro Maranoc', 'Maxine Mae Nuqui', 'Gavin Bansil', 'Arian Manson',
+      'Prince Jacob', 'Angelita Mosones', 'Mikaela Manuel', 'Kiara Clyne Paran', 'Jin Cazzey Payumo', 'Akihiro Bulanadi'
+    ]
   }
 };
 
-// ✏️ EDIT HERE — the date and time the countdown counts down to.
+// EDIT HERE — the date and time the countdown counts down to.
 // October 17, 2026 at 6:00 PM (Philippine time, UTC+8).
 const EVENT_DATE = '2026-10-17T18:00:00+08:00';
 

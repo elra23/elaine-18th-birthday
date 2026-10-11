@@ -1152,6 +1152,7 @@ a { color: inherit; }
 [data-key="treasures"] { --a: #D6C2F8; --b: #AD90EC; --n: #7F5BD0; }
 [data-key="shots"]     { --a: #C3D0FA; --b: #92A9F0; --n: #5470D6; }
 [data-key="bills"]     { --a: #B4CDFA; --b: #82A4EE; --n: #3F62CF; }
+[data-key="chocolates"] { --a: #F1D9C8; --b: #D1A07C; --n: #8B5A3A; }
 [data-key="balloons"]  { --a: #F7C5E4; --b: #E98DC2; --n: #B74483; }
 
 .trad-panel { animation: panelIn 0.6s ease both; }
